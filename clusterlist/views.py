@@ -4,9 +4,10 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def home(requests):
-    return HttpResponse('Home page')
+def home(request):
+    return render(request, 'clusters/dashboard.html')
 
 
-def cluster_data(requests):
-    return HttpResponse('CLuster data')
+def cluster_data(request):
+    return render(request, 'clusters/clusters.html')
+
