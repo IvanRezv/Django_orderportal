@@ -19,7 +19,18 @@
                     <th>Кластер PROD</th>
                     <th>Заявки на доступ(РЗ)</th>
                 </tr>
-
+                    {% for i in clusters %}
+                    <tr>
+                        <td>{{ i.system_name }}</td>
+                        <td>{{ i.rds_link }}</td>
+                        <td>{{ i.rds_status }}</td>
+                        <td>{{ i.lt_namespace }}</td>
+                        <td>{{ i.lt_cluster }}</td>
+                        <td>{{ i.prod_namespace }}</td>
+                        <td>{{ i.prod_cluster }}</td>
+                        <td>{{ i.acc_requests }}</td>
+                    </tr>
+                    {% endfor %}
             </table>
         </div>
       </div>
