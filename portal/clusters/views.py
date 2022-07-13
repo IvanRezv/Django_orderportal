@@ -26,5 +26,9 @@ def product(request):
     return render(request, 'clusters/products.html', {'products': products})
 
 
-def customer(request):
-    return render(request, 'clusters/customer.html')
+def customer(request, pk_test):
+    customer = Customer.objects.get(id=pk_test)
+    orders = customer.order_set.all()
+    order_count = orders.count()
+    context = {'customer': customer, 'orders': orders, 'order_count': order_count}
+    return render(request, 'clusters/customer.html', context)
