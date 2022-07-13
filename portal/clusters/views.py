@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
+from .forms import OrderForm
+
 
 # Create your views here.
 
@@ -32,3 +34,41 @@ def customer(request, pk_test):
     order_count = orders.count()
     context = {'customer': customer, 'orders': orders, 'order_count': order_count}
     return render(request, 'clusters/customer.html', context)
+
+
+def createOrder(request):
+    form = OrderForm()
+    if request.method == 'POST':
+        # print('Printing POST:', request.POST)
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form': form}
+    return render(request, 'clusters/order_form.html', context)
+
+
+def updateOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+
+    if request.method == 'POST':
+        # print('Printing POST:', request.POST)
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form': form}
+    return render(request, 'clusters/order_form.html', context)
+
+
+def deleteOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('/')
+
+    context = {'item': order}
+    return render(request, 'clusters/delete.html', context)
