@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('register/', views.registerPage, name="register"),
     path('login/', views.loginPage, name="login"),
@@ -9,6 +10,9 @@ urlpatterns = [
 
     path('product/', views.product, name="products"),
     path('user/', views.userPage, name="user-page"),
+
+    path('account/', views.accountSettings, name="account"),
+
     path('', views.home, name="home"),
     path('customer/<str:pk_test>/', views.customer, name="customer"),
 
